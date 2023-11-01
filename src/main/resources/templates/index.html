@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/emp/save/"th:object="${EmployeeModel}">
+    <input type="number" id="id" name="id" placeholder="Enter Id"><br>
+    <input type="text" id="name" name="name" placeholder="Enter Name" required><br>
+
+    <select id="idDesignation" name="idDesignation" required>
+        <option selected disabled>Select Designation</option>
+        <option value="1">Manager</option>
+        <option value="2">Analyst</option>
+        <option value="3">Developer</option>
+    </select><br>
+
+    <input type="salary" id="salary" name="salary" placeholder="Enter salary"><br>
+
+    <input type="submit" value="SAVE">
+    <input type="reset" value="CLEAR">
+
+</form>
+
+<table border="1">
+    <tr>
+        <th align="center">Id</th>
+        <th align="center">Name</th>
+        <th align="center">Designation</th>
+        <th align="center">salary</th>
+        <th align="center">Action</th>
+
+    </tr>
+
+    <tr th:each="emp : ${list}">
+        <td th:text="${emp.id}"></td>
+        <td th:text="${emp.name}"></td>
+
+        <td th:if="${emp.idDesignation == 1}">Manager</td>
+        <td th:if="${emp.idDesignation == 2}">Analyst</td>
+        <td th:if="${emp.idDesignation == 3}">Developer</td>
+
+        <td th:text="${emp.salary}"></td>
+        <td><a th:href="@{/emp/delete/{id}/(id = ${emp.id})}">Delete</a></td >
+
+    </tr>
+
+</table>
+</body>
+</html>
